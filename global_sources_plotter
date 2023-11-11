@@ -1,0 +1,63 @@
+import matplotlib.pyplot as plt
+
+# Set the font to Times New Roman for the entire script
+plt.rcParams['font.family'] = 'Times New Roman'
+
+# Initialize empty lists to store data
+years = []
+data1 = []
+data2 = []
+data3 = []
+data4 = []
+data5 = []
+
+# Define the file path
+file_path = r'C:\Users\mail\OneDrive\Documents\02_Universitetet_i_Bergen\07_H23\ENERGI230\Essay\06_EnROADS\global_sources.txt'
+
+# Read data from the file
+with open(file_path, 'r') as file:
+    for line in file:
+        values = line.strip().split('\t')
+        years.append(int(values[0]))
+        data1.append(float(values[1]))
+        data2.append(float(values[2]))
+        if len(values) > 3:
+            data3.append(float(values[3]))
+        if len(values) > 4:
+            data4.append(float(values[4]))
+        if len(values) > 5:
+            data5.append(float(values[5]))
+
+# Create a stacked area chart
+plt.figure(figsize=(6, 6))
+plt.stackplot(years, data1, data2, data3, data4, data5,
+              labels=['Kull', 'Olje', 'Gass', 'Fornybar', 'Bioenergi'],
+              colors=['brown', 'red', 'blue', 'green', 'pink'], alpha=1)
+
+# Customize the plot with larger titles and axis tick sizes
+#plt.title('Global Sources of Primary Energy', fontsize=20)
+#plt.xlabel('Year', fontsize=25)
+plt.ylabel('Exajoule/år', fontsize=20)
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+plt.legend(fontsize=20, loc='upper left')
+
+# Set x-axis and y-axis limits
+plt.xlim(2000, 2100)
+plt.ylim(0, 1200)
+
+# Set the grid to appear behind the data and display it
+plt.grid(True, zorder=0)
+plt.gca().set_axisbelow(True)
+
+# Display the plot with a tight layout
+plt.tight_layout()
+
+# Define the path for saving the figure
+save_path = r'C:\Users\mail\OneDrive\Documents\02_Universitetet_i_Bergen\07_H23\ENERGI230\Essay\06_EnROADS\global_sources.pdf'
+
+# Save the figure with specified dimensions
+plt.savefig(save_path, format='pdf', bbox_inches='tight', dpi=300)
+
+# Optionally display the plot
+plt.show()
