@@ -1,0 +1,61 @@
+import matplotlib.pyplot as plt
+
+# Set the font to Times New Roman for the entire script
+plt.rcParams['font.family'] = 'Times New Roman'
+
+# Initialize empty lists to store data
+years = []
+data1 = []
+data2 = []
+data3 = []
+
+# Define the file path
+file_path = r'C:\Users\mail\OneDrive\Documents\02_Universitetet_i_Bergen\07_H23\ENERGI230\Essay\06_EnROADS\revenue_cost_taxes_subsidies.txt'
+
+# Read data from the 'Cost_of_energy' file
+with open(file_path, 'r') as file:
+    for line in file:
+        values = line.strip().split('\t')
+        years.append(int(values[0]))
+        data1.append(float(values[1]))
+        data2.append(float(values[2]))
+        data3.append(float(values[3]))
+
+# # Find and print the highest value for data2 and its corresponding year
+# max_value_data2 = max(data2)
+# max_index = data2.index(max_value_data2)
+# max_year = years[max_index]
+# print(f"The highest value for Data 2 (Current Scenario) is: {max_value_data2} (Year: {max_year})")
+
+# Create a plot with specified figure size
+plt.figure(figsize=(6, 6))
+plt.plot(years, data3, label='Omstilling fra skatt', color='gray', linewidth='6', linestyle='-')
+plt.plot(years, data2, label='Kostnad av subsidier', color='magenta', linewidth='6', linestyle='-')
+plt.plot(years, data1, label='NETTO: Omstilling - kostnad', color='turquoise', linewidth='2', linestyle='-')
+
+# Customize the plot with larger titles and axis tick sizes
+#plt.title('Market Price of Electricity', fontsize=25)
+#plt.xlabel('Year', fontsize=20)
+plt.ylabel('Trillion $/år', fontsize=20)
+plt.xticks(fontsize=20)  
+plt.yticks(fontsize=20)  
+plt.legend(fontsize=20)
+
+# Set x-axis limits
+plt.xlim(2000, 2100)
+
+# Set y-axis limits
+plt.ylim(-15, 15)
+
+# Display the plot
+plt.grid(True)
+plt.tight_layout()
+
+# Define the path for saving the figure
+save_path = r'C:\Users\mail\OneDrive\Documents\02_Universitetet_i_Bergen\07_H23\ENERGI230\Essay\06_EnROADS\revenue_cost_taxes_subsidies.pdf'
+
+# Save the figure with specified dimensions
+plt.savefig(save_path, format='pdf', bbox_inches='tight', dpi=300)
+
+# Optionally display the plot
+plt.show()
